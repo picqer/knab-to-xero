@@ -102,6 +102,8 @@ class KnabExtractor {
             $value = str_replace(',', '.', $value);
         }
 
+        $value = str_replace(',', '', $value);
+
         if ($cellName == 'date' || $cellName == 'currency-date')
         {
             $value = date('Y-m-d', strtotime($value));
