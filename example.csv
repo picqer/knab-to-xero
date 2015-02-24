@@ -1,0 +1,4 @@
+KNAB EXPORT;;;;;;;;;;;;;;
+Rekeningnummer;Transactiedatum;Valutacode;CreditDebet;Bedrag;Tegenrekeningnummer;Tegenrekeninghouder;Valutadatum;Betaalwijze;Omschrijving;Type betaling;Machtigingsnummer;Incassant ID;Adres;
+"NL06KNAB0720562066";"24-02-2015";"EUR";"D";"90,75";"NL54INGB0123457890";"Demo Example BV";"24-02-2015";"Overboeking";"563561 ";"";"";"";"";
+"NL06KNAB0720562066";"20-02-2015";"EUR";"C";"19,95";"NL97KNAB0283482838";"John Doe";"20-02-2015";"Ontvangen betaling";"Verkeerde iDeal ";"";"";"";"Dorpsstraat 28 1827 DM Utrecht";

@@ -1,0 +1,26 @@
+{
+    "name": "picqer/knab-to-xero",
+    "type": "library",
+    "description": "A PHP script to convert Knab CSV files to Xero files",
+    "keywords": [
+        "knab",
+        "xero",
+        "csv converter"
+    ],
+    "homepage": "http://github.com/picqer/knab-to-xero",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Casper Bakker",
+            "email": "info@picqer.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Picqer\\KnabToXero\\": "src/KnabToXero/"
+        }
+    }
+}
