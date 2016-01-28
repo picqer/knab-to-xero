@@ -10,11 +10,21 @@ function dd($contents)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    $knabExtractor = new \Picqer\KnabToXero\KnabExtractor();
-    $knabRecords = $knabExtractor->extractCSV(file_get_contents($_FILES['csvfile']['tmp_name']));
+    if (isset($_FILES['csvfileknab']['tmp_name'])) {
+        $knabExtractor = new \Picqer\KnabToXero\KnabExtractor();
+        $knabRecords = $knabExtractor->extractCSV(file_get_contents($_FILES['csvfileknab']['tmp_name']));
 
-    $converter = new \Picqer\KnabToXero\KnabToXeroConverter();
-    $xeroRecordCollection = $converter->convertArray($knabRecords);
+        $converter = new \Picqer\KnabToXero\KnabToXeroConverter();
+        $xeroRecordCollection = $converter->convertArray($knabRecords);
+    } elseif (isset($_FILES['csvfileics']['tmp_name'])) {
+        $icsExtractor = new \Picqer\KnabToXero\IcsExtractor();
+        $icsRecords = $icsExtractor->extractCSV(file_get_contents($_FILES['csvfileics']['tmp_name']));
+
+        $converter = new \Picqer\KnabToXero\IcsToXeroConverter();
+        $xeroRecordCollection = $converter->convertArray($icsRecords);
+    } else {
+        throw new Exception('No file found');
+    }
 
     $csvCreator = new \Picqer\KnabToXero\XeroCsvCreator();
 
@@ -50,8 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         </div>
         <form action="" method="post" enctype="multipart/form-data">
             <p>
-                <label for="csvfile">Knab CSV file</label><br>
-                <input type="file" id="csvfile" name="csvfile">
+                <label for="csvfileknab">Knab CSV file</label><br>
+                <input type="file" id="csvfile" name="csvfileknab">
+            </p>
+            <p><input type="submit" value="Convert to Xero CSV" class="btn btn-primary"></p>
+        </form>
+        <form action="" method="post" enctype="multipart/form-data">
+            <p>
+                <label for="csvfileknab">International Card Services CSV file</label><br>
+                <input type="file" id="csvfile" name="csvfileics">
             </p>
             <p><input type="submit" value="Convert to Xero CSV" class="btn btn-primary"></p>
         </form>

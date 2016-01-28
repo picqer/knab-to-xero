@@ -2,31 +2,27 @@
 
 namespace Picqer\KnabToXero;
 
-class KnabExtractor {
+class IcsExtractor {
     private $records = array();
 
     private $config = array(
-        'csv-header-regex'    => '/KNAB EXPORT(;+)\r\n/si',
-        'csv-row-endings'     => "\r\n",
+        'csv-row-endings'     => "\n",
         'csv-field-delimiter' => ';',
-        'csv-field-enclosure' => '"'
+        'csv-field-enclosure' => ''
     );
 
     private $fields = array(
-        'account-number',
         'date',
-        'currency',
+        'currency-date',
+        'description',
+        'name-card-holder',
+        'card-number',
         'credit-debit',
         'amount',
-        'payee-account-number',
-        'payee-name',
-        'currency-date',
-        'payment-method',
-        'description',
-        'payment-type',
-        'mandate-id',
-        'collector-id',
-        'address'
+        'merchant-category',
+        'country',
+        'source-currency',
+        'amount-in-source-currency'
     );
 
     public function __construct($config = array())
@@ -55,7 +51,7 @@ class KnabExtractor {
 
     private function cleanup($contents)
     {
-        return trim(preg_replace($this->config['csv-header-regex'], '', $contents));
+        return trim($contents);
     }
 
     private function splitRows($contents)
@@ -97,9 +93,9 @@ class KnabExtractor {
     {
         $value = trim($value);
 
-        if ($cellName == 'amount')
+        if ($cellName == 'amount' || $cellName == 'amount-in-source-currency')
         {
-            $value = str_replace(',', '.', $value);
+            $value = str_replace(',', '.', str_replace('.', '', $value)); // Amounts are shown as: 1.262,00
         }
 
         $value = str_replace(',', '', $value); // Xero cannot handle comma's
